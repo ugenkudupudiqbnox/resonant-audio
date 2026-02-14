@@ -7,14 +7,18 @@ from tqdm import tqdm
 from src.models.resonant_model import ResonantAudioModel
 
 
-def dummy_dataset(batch_size=16, seq_len=200, input_dim=80):
-    """
-    Temporary synthetic dataset.
-    Replace later with real mel spectrogram dataset.
-    """
+def harmonic_dataset(batch_size=16, seq_len=200, input_dim=80):
     while True:
-        x = torch.randn(batch_size, seq_len, input_dim)
-        y = x.clone()  # identity task for debugging
+        t = torch.linspace(0, 1, seq_len)
+        freq = torch.randint(1, 10, (batch_size, 1)).float()
+        signal = torch.sin(2 * torch.pi * freq * t)
+
+        signal = signal.unsqueeze(-1).repeat(1, 1, input_dim)
+        noise = 0.05 * torch.randn_like(signal)
+
+        x = signal + noise
+        y = signal  # denoise
+
         yield x, y
 
 
@@ -22,7 +26,7 @@ def train_one_epoch(model, optimizer, criterion, device):
     model.train()
 
     total_loss = 0.0
-    data_iter = dummy_dataset()
+    data_iter = harmonic_dataset()
     
     # Tracking metrics
     num_layers = len(model.blocks)
@@ -73,6 +77,8 @@ def train_one_epoch(model, optimizer, criterion, device):
             
             print(f"Layer {i} | Mean r: {r.mean().item():.4f} | Mean |w|: {w.abs().mean().item():.4f}")
             print(f"        | Avg H-Norm: {avg_h_norm:.4f} | Avg Grad-Norm: {avg_grad_norm:.4f}")
+            print("Omega histogram:", block.w_param.data.mean().item())
+            print("R histogram:", torch.sigmoid(block.r_param).mean().item())
 
     return total_loss / 100
 
