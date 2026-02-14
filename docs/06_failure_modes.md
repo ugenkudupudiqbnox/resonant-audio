@@ -1,6 +1,7 @@
 # Failure Modes
 
-- Phase drift
+- Phase instability
 - Over-damping
-- Hidden state explosion
-- Frequency aliasing
+- Hidden norm explosion
+- Frequency collapse
+- Optimization instability

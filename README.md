@@ -1,20 +1,31 @@
-# Resonant Linear Recurrent Networks for Streaming Audio Modeling
+# Resonant Linear Recurrent Networks (ReLRN)
 
 ## Overview
-Resonant LRNNs model audio as a bank of learnable damped resonators.
-Designed for streaming, constant-memory inference, and architectural novelty.
+ReLRN explores oscillatory recurrent dynamics for streaming audio modeling.
 
-## Core Idea
+Instead of modeling memory as pure exponential decay,
+we model memory as **learnable damped resonators**.
+
+This repository is structured as a research-first architecture lab.
+
+---
+
+## Core Recurrence
+
 Standard LRNN:
-h_t = alpha * h_{t-1} + W x_t
+h_t = α ∘ h_{t-1} + W x_t
 
 Resonant LRNN:
-h_t = r * R(omega) * h_{t-1} + W x_t
+h_t = r · R(ω) h_{t-1} + W x_t
 
-Each hidden pair becomes a digital resonator.
+Each 2D hidden pair acts as a digital resonator.
 
-## Goals
-- Streaming-native audio modeling
-- Oscillatory memory representation
+---
+
+## Research Focus
+- Streaming-native modeling
+- Oscillatory state dynamics
 - Interpretable resonance spectrum
-- Parameter-efficient architecture
+- Hardware-efficient recurrence
+
+Created: 2026-02-14T21:10:06.851257 UTC

@@ -1,7 +1,7 @@
 # Experimental Protocol
 
 Datasets:
-- LibriSpeech subset
+- LibriSpeech (subset)
 - VoiceBank-DEMAND
 
 Metrics:
@@ -12,3 +12,7 @@ Metrics:
 Baselines:
 - GRU
 - Transformer
+- Vanilla LRNN
+
+Primary Objective:
+Quality vs Efficiency tradeoff.

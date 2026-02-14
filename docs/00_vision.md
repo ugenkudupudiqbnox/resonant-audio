@@ -1,6 +1,15 @@
 # Vision
 
-Audio is oscillatory. Memory should be resonant, not purely decaying.
+Audio signals are oscillatory and harmonic.
 
-This project explores resonance-based recurrence as a foundation
-for next-generation streaming audio architectures.
+Transformers capture global relationships but are not streaming-native.
+Standard RNNs model decay but ignore phase continuity.
+
+ReLRN introduces resonance-based recurrence:
+Memory as damped oscillation rather than simple forgetting.
+
+Goal:
+Demonstrate that oscillatory recurrence provides:
+- Better harmonic continuity
+- Stronger inductive bias for audio
+- Efficient constant-memory inference
